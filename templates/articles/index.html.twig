@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArticlesController!{% endblock %}
+
+{% block body %}
+
+{% for articles in articles %}
+
+{{articles.title}}
+{{articles.content}}
+{{articles.image}}
+
+<a href = "{{ path('articles_show', {'slug': articles.slug}) }}">Voir</a>
+
+{% endfor %}
+
+{% endblock %}
