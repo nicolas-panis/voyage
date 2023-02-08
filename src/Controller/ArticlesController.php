@@ -53,6 +53,7 @@ class ArticlesController extends AbstractController
     public function show(Request $request, $slug): Response
     {
         $article = $this->entityManager->getRepository(Articles::class)->findOneBySlug($slug);
+
         $commentaire = new Commentaires();
         $form = $this->createForm(CommentairesType::class, $commentaire);
         $form->handleRequest($request);
@@ -78,7 +79,7 @@ class ArticlesController extends AbstractController
     public function edit(Request $request, $slug): Response
     {
         $article = $this->entityManager->getRepository(Articles::class)->findOneBySlug($slug);
-        if ($article && $article->getUser() == $this->getUser()){
+        if (!$article && $article->getUser() != $this->getUser()){
             return $this->redirectToRoute('articles');
         }
         $form = $this->createForm(ArticlesType::class, $article);

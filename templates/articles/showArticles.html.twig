@@ -20,14 +20,19 @@
                 
                 </div>
         </div>
-    </div
-
-<a href = "{{ path('articles_edit', {'slug': articles.slug}) }}">Modifier</a>
-<a href = "{{ path('articles_delete', {'slug': articles.slug}) }}">Supprimer</a>
+    </div>
+    
+{% if app.user == articles.user %}
+    <a href = "{{ path('articles_edit', {'slug': articles.slug}) }}">Modifier</a>
+    <a href = "{{ path('articles_delete', {'slug': articles.slug}) }}">Supprimer</a>
+{% endif %}
 
 {% for commentaires in commentaires %}
 
-{{commentaires.content}}
+
+{% if commentaires.articles.id == articles.id %}
+    {{commentaires.content}}
+{% endif %}
 
 {% endfor %}
 

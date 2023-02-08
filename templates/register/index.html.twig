@@ -3,7 +3,13 @@
 {% block title %}Hello RegisterController!{% endblock %}
 
 {% block body %}
-
-{{form(form)}}
+<div class="flex flex-col m-h-[62.5vh] w-full items-center px-4">
+    <div class="mt-8 max-w-sm w-full p-4 bg-white border-gray-200 rounded-lg shadow sm:p-6 md:p-8">
+        
+        {{form_start(form, {'attr':{'class': 'space-y-4'}})}}
+            <h1 class="text-center text-xl font-medium text-emerald-900">Veuillez-vous inscrire</h1>
+        {{form_end(form)}}
+    </div>
+</div>
 
 {% endblock %}
