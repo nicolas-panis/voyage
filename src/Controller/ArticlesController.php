@@ -78,6 +78,9 @@ class ArticlesController extends AbstractController
     public function edit(Request $request, $slug): Response
     {
         $article = $this->entityManager->getRepository(Articles::class)->findOneBySlug($slug);
+        if ($article && $article->getUser() == $this->getUser()){
+            return $this->redirectToRoute('articles');
+        }
         $form = $this->createForm(ArticlesType::class, $article);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
