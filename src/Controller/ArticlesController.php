@@ -64,6 +64,9 @@ class ArticlesController extends AbstractController
             $commentaire->setUpdateAt(new \DateTime());
             $this->entityManager->persist($commentaire);
             $this->entityManager->flush();
+            return $this->redirectToRoute('articles_show', [
+                'slug' => $article->getSlug(),
+            ]);
         }
 
         $commentaires = $this->entityManager->getRepository(Commentaires::class)->findAll();
