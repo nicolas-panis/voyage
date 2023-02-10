@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ArticlesController extends AbstractController
 {
@@ -31,7 +32,7 @@ class ArticlesController extends AbstractController
     }
 
     #[Route('/articles/ajouter', name: 'articles_add')]
-    public function add(Request $request): Response
+    public function add(Request $request, SluggerInterface $slugger): Response
     {
         $article = new Articles();
         $form = $this->createForm(ArticlesType::class, $article);
@@ -40,6 +41,10 @@ class ArticlesController extends AbstractController
             $article->setUser($this->getUser());
             $article->setCreatedAt(new \DateTime());
             $article->setUpdateAt(new \DateTime());
+            $image = $form->get('image')->getData();
+            $fichier = md5(uniqid()) . '.' . $image->guessExtension();
+            $image->move($this->getParameter('articles_directory'), $fichier);
+            $article->setImage($fichier);
             $this->entityManager->persist($article);
             $this->entityManager->flush();
             return $this->redirectToRoute('articles');

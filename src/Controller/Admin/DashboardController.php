@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Articles;
 use App\Entity\Categories;
 use App\Entity\User;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -51,7 +52,15 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('User', 'fas fa-users', User::class);
-        yield MenuItem::linkToCrud('Articles', 'fas fa-users', Articles::class);
-        yield MenuItem::linkToCrud('Categories', 'fas fa-users', Categories::class);
+        yield MenuItem::subMenu('Articles', 'fa-regular fa-newspaper')->setSubItems([
+            MenuItem::linkToCrud('Mes articles', '', Articles::class)->setAction('index'),
+            MenuItem::linkToCrud('Ajouter un article','', Articles::class)->setAction('new'),
+        ]);
+        
+        yield MenuItem::subMenu('Categories', 'fa-solid fa-tags')->setSubItems([
+            MenuItem::linkToCrud('Mes catégories','', Categories::class)->setAction('index'),
+            MenuItem::linkToCrud('Ajouter une catégorie','', Categories::class)->setAction('new'),
+
+        ]);
     }
 }
