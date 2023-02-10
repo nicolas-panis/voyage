@@ -1,27 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer components {
     body{
-        @apply min-h-screen bg-emerald-900;
+        @apply min-h-screen bg-slate-100;
+        font-family: 'Comfortaa', cursive;
     }
     .body-container{
         @apply flex flex-col w-full min-h-[62.5vh] mb-8;
     }
     .container-content{
-        @apply h-full w-full flex flex-col items-center gap-2.5 px-6 pt-4;
-    }
-    nav{
-        @apply flex h-28 w-full px-8 py-2 items-center md:px-12; 
-    }
-    .mobile-nav{
-        @apply flex items-center justify-between w-full h-full;
-    }
-    .box-logo{
-        @apply h-20 w-20;
-    }
-    .logo{
-        @apply rounded-full w-full h-full;
+        @apply h-full w-full flex flex-col items-center gap-2.5 px-6 pt-4 ;
     }
 }
