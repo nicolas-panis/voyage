@@ -94,6 +94,10 @@ class ArticlesController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
             $article->setUpdateAt(new \DateTime());
+            $image = $form->get('image')->getData();
+            $fichier = md5(uniqid()) . '.' . $image->guessExtension();
+            $image->move($this->getParameter('articles_directory'), $fichier);
+            $article->setImage($fichier);
             $this->entityManager->flush();
             return $this->redirectToRoute('articles_show', [
                 'slug' => $article->getSlug(),

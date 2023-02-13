@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Articles;
 use App\Entity\Categories;
+use EasyCorp\Bundle\EasyAdminBundle\Form\Type\TextEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -24,11 +25,23 @@ class ArticlesType extends AbstractType
                     'class' => "block mb-2 text-sm font-medium text-gray-900"
                 ],
                 'attr' => [
-                    'class' => "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+                    'class' => "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 mb-2"
                 ] 
-
             ])
-            ->add('content', TextareaType::class, [
+
+            ->add('image', FileType::class, [
+                'label' => "Image",
+                'label_attr' => [
+                    'class' => "block mb-2 text-sm font-medium text-gray-900"                        
+                ],
+                'mapped' => false,
+                'multiple' => false,
+                'attr' => [
+                    'class' => "rounded-full"
+                ]  
+            ])
+
+            ->add('content', TextEditorType::class, [
                 'label' => "Contenu",
                 'label_attr' => [
                     'class' => "block mb-2 text-sm font-medium text-gray-900"
@@ -37,19 +50,19 @@ class ArticlesType extends AbstractType
                     'class' => "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                 ] 
             ])
-            ->add('image', FileType::class, [
-                'label' => "Image",
-                'mapped' => false,
-                'multiple' => false,
-                
-            ])
             ->add('categories', EntityType::class, [
                 'class' => Categories::class,
+                'label_attr' => [
+                    'class' => "block mb-2 text-sm font-medium text-gray-900"
+                ],
                 'multiple' => true,
-                'expanded' => true
+                'expanded' => true,
             ])
             ->add('submit', SubmitType::class,[
-                'label' => "Publier"
+                'label' => "Publier",
+                'attr' => [
+                    'class' => "text-white bg-gradient-to-r from-emerald-700 via-emerald-800 to-emerald-900 hover:bg-gradient-to-l  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 w-full"
+                ]
             ])
         ;
     }

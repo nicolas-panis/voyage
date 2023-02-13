@@ -5,13 +5,7 @@
 
 @layer components {
     body{
-        @apply min-h-screen bg-slate-100;
+        @apply min-h-screen bg-emerald-50;
         font-family: 'Comfortaa', cursive;
-    }
-    .body-container{
-        @apply flex flex-col w-full min-h-[62.5vh] mb-8;
-    }
-    .container-content{
-        @apply h-full w-full flex flex-col items-center gap-2.5 px-6 pt-4 ;
     }
 }

@@ -3,7 +3,20 @@
 {% block title %}Hello ArticlesController!{% endblock %}
 
 {% block body %}
+<div class="flex flex-col m-h-[62.5vh] w-full items-center px-4">
+    <div class="mt-8 w-11/12 lg:w-10/12 xl:w-8/12 p-4 bg-white border-gray-200 rounded-lg shadow sm:p-6 md:p-8">
+        {{form_start(form, {'attr':{'class': 'space-y-6 overflow-hidden'}})}}
+            <h1 class="text-center text-xl font-medium text-emerald-900">Nouvel article</h1>
+            {{form_row(form.title)}}
 
-{{form(form)}}
+            {{form_row(form.image)}}
+            {{form_row(form.content)}}
+            {{form_label(form.categories)}}
+            
+            {{form_widget(form.categories, {'attr': {'class': 'grid grid-cols-2 sm:grid-cols-4 sm:w-full items-center w-36'}})}}
+            
+        {{form_end(form)}}
+    </div>
+</div>
 
 {% endblock %}
