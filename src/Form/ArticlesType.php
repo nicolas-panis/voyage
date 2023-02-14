@@ -41,7 +41,7 @@ class ArticlesType extends AbstractType
                 ]  
             ])
 
-            ->add('content', TextEditorType::class, [
+            ->add('content', TextareaType::class, [
                 'label' => "Contenu",
                 'label_attr' => [
                     'class' => "block mb-2 text-sm font-medium text-gray-900"

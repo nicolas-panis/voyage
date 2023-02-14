@@ -17,3 +17,15 @@ function hidde(){
 }
 crossNav.onclick = hidde;
 
+let btnComment = document.getElementById('Comment');
+
+function showComment(){
+    let allComment = document.getElementById('allComment');
+    if(allComment.style.display === "none"){
+        allComment.style.display = "flex";
+    }else{
+        allComment.style.display = "none";
+    }
+}
+
+btnComment.onclick = showComment;
