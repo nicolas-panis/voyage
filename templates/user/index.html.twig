@@ -1,37 +1,73 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mes Articles | Travel Stars{% endblock %}
+{% block title %}Mon compte | Travel Stars{% endblock %}
 
 {% block body %}
-    <div class="flex flex-col m-h-[62.5vh] w-full items-center px-4">
-        <div class="mt-8 max-w-sm w-full p-4 bg-white border-gray-200 rounded-lg shadow sm:p-6 md:p-8">
-            {% if app.user.articles|length == 0 %}
-              <div>pas d'articles</div>
-            {% else %}
-              {% set i = 0 %}
-              <div class="flex flex-col mt-2">
-              {% for articles in app.user.articles %}           
-                  <div id="accordion-flush" data-accordion="collapse" data-active-classes="bg-white dark:bg-gray-900 text-gray-900 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
-                    <h2 id="accordion-flush-heading-{{i + 1}}">
-                      <button type="button" class="flex items-center justify-between w-full py-5 font-bold text-lg text-left text-emerald-900 border-b border-gray-200" data-accordion-target="#accordion-flush-body-{{i + 1}}" aria-expanded="false" aria-controls="accordion-flush-body-{{i + 1}}">
-                        <span>{{articles.title}}</span>
-                        <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                      </button>
-                    </h2>
-                    <div id="accordion-flush-body-{{i + 1}}" class="hidden" aria-labelledby="accordion-flush-heading-{{i + 1}}">
-                      <div class="py-5 font-light border-b border-gray-200 dark:border-gray-700">
-                        <p class="mb-2 text-gray-500 dark:text-gray-400">{{articles.content}}</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="flex gap-2 justify-end mt-2">
-                      <a href = "{{ path('articles_edit', {'slug': articles.slug}) }}"><i class="fa-solid fa-gear text-gray-500"></i></a> |
-                      <a href = "{{ path('articles_delete', {'slug': articles.slug}) }}"><i class="fa-solid fa-trash-can text-red-900"></i></a>
-                  </div>
-                  {% set i = i + 1 %}
-              {% endfor %}
-            {% endif %}
+  {% if app.user %}
+    {% if app.user.avatar|length == 0 %}
+    <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow">
+        <div class="flex justify-end px-4 pt-4">
+            <button id="dropdownButton" data-dropdown-toggle="dropdown" class="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5" type="button">
+                <span class="sr-only">Open dropdown</span>
+                <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path></svg>
+            </button>
+            <!-- Dropdown menu -->
+            <div id="dropdown" class="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                <ul class="py-2" aria-labelledby="dropdownButton">
+                <li>
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Edit</a>
+                </li>
+                <li>
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Export Data</a>
+                </li>
+                <li>
+                    <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Delete</a>
+                </li>
+                </ul>
+            </div>
+        </div>
+        <div class="flex flex-col items-center pb-10">
+            <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="{{asset('assets/img/avatar.jpg')}}" alt="Bonnie image"/>
+            <h5 class="mb-1 text-xl font-medium text-gray-900">{{app.user.login|capitalize}}</h5>
+            <span class="text-sm text-gray-500 dark:text-gray-400">{{app.user.email}}</span>
+            <div class="flex mt-4 space-x-3 md:mt-6">
+                <a href="{{ path('user_addAvatar')}}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">Ajouter un avatar</a>
+                
             </div>
         </div>
     </div>
+    {% else %}
+    <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow">
+        <div class="flex justify-end px-4 pt-4">
+            <button id="dropdownButton" data-dropdown-toggle="dropdown" class="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5" type="button">
+                <span class="sr-only">Open dropdown</span>
+                <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path></svg>
+            </button>
+            <!-- Dropdown menu -->
+            <div id="dropdown" class="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                <ul class="py-2" aria-labelledby="dropdownButton">
+                <li>
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Edit</a>
+                </li>
+                <li>
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Export Data</a>
+                </li>
+                <li>
+                    <a href="{{path('user_deleteAvatar',{'id': app.user.avatar.id})}}" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Delete</a>
+                </li>
+                </ul>
+            </div>
+        </div>
+        <div class="flex flex-col items-center pb-10">
+            <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="/uploads/avatar/{{app.user.avatar.image}}" alt="Bonnie image"/>
+            <h5 class="mb-1 text-xl font-medium text-gray-900">{{app.user.login|capitalize}}</h5>
+            <span class="text-sm text-gray-500 dark:text-gray-400">{{app.user.email}}</span>
+            <div class="flex mt-4 space-x-3 md:mt-6">
+                <a href="{{ path('user_editAvatar', {'id': app.user.avatar.id}) }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">Changer mon avatar</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+  {% endif %}
+  
 {% endblock %}

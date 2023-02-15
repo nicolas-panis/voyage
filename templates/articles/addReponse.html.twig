@@ -45,30 +45,21 @@
                 </div>
                 <hr class=" my-3 w-full border-0.5 border-slate-300">
                 <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{commentaires.content}}</p>
-                <form method = "get">
-                    <button id = "add_Rep" type = "button" name = "add_Rep" value = {{commentaires.id}}  class="inline-flex w-full items-center text-sm font-medium justify-end text-gray-700 rounded-lg underline">
+                <a href="#" class="inline-flex w-full items-center text-sm font-medium justify-end text-gray-700 rounded-lg underline">
                     Réponse
-                    </button>
-                </form> 
-                {# <a href="#" class="inline-flex w-full items-center text-sm font-medium justify-end text-gray-700 rounded-lg underline">
-                    Réponse
-                </a> #}
+                </a>
             </div>
-            
         {% endif %}
-        
     {% endfor %}
+</div>
+
     <div class="flex w-full justify-center mt-2">
         {{form_start(form, {'attr':{'class': 'pt-4 px-4 w-8/12 bg-white shadow-lg rounded-lg'}})}}
             {{form_row(form.content)}}
             {{form_row(form.submit)}}
         {{form_end(form)}}
     </div>
-</div>
-
-    {# <div id = "form_rep" class="flex w-full justify-center mt-8" style = "display: none">
-        {{form(form_reponse)}}
-    </div> #}
+    {{form(form_reponse)}}
 {% endblock %}
 
 
