@@ -26,7 +26,7 @@ class Articles
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
-    #[ORM\ManyToOne(inversedBy: 'articles')]
+    #[ORM\ManyToOne(inversedBy: 'articles', targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
