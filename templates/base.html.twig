@@ -7,7 +7,7 @@
 
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.css" rel="stylesheet" />
+        {# <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.css" rel="stylesheet" /> #}
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
@@ -41,11 +41,11 @@
                     {% if app.user %}
                         <button id="dropdownUserAvatarButton" data-dropdown-toggle="dropdownAvatar" class="flex mx-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" type="button">
                             <span class="sr-only">Open user menu</span>
-                            {% if app.user.avatar|length == 0 %}
+                            {# {% if app.user.avatar|length == 0 %} #}
                             <img class="w-8 h-8 rounded-full" src="{{ asset('assets/img/avatar.jpg') }}" alt="user photo">
-                            {% else %}
+                            {# {% else %}
                             <img class="w-8 h-8 rounded-full" src="/uploads/avatar/{{app.user.avatar.image}}" alt="user photo">
-                            {% endif %}
+                            {% endif %} #}
                         </button>
                         <div id="dropdownAvatar" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
                             <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
@@ -86,11 +86,11 @@
                     {% if app.user %}
                         <button id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarName" class="flex text-center items-center text-sm font-medium text-gray-900 rounded-full hover:text-blue-600 md:mr-0 focus:ring-4 focus:ring-gray-100" type="button">
                             <span class="sr-only">Open user menu</span>
-                            {% if app.user.avatar|length == 0 %}
+                            {# {% if app.user.avatar|length == 0 %} #}
                             <img class="w-8 h-8 rounded-full" src="{{ asset('assets/img/avatar.jpg') }}" alt="user photo">
-                            {% else %}
+                            {# {% else %}
                             <img class="w-8 h-8 rounded-full" src="/uploads/avatar/{{app.user.avatar.image}}" alt="user photo">
-                            {% endif %}
+                            {% endif %} #}
                             {{app.user.login}}
                             <i class="fa-solid fa-chevron-down w-4 h-4 mx-1.5 mt-1.5 text-xs"></i>
                         </button>

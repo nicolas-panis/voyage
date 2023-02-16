@@ -3,6 +3,7 @@ module.exports = {
   content: [
     'templates/**/*.html.twig',
     'assets/**/*.js',
+    "./node_modules/flowbite/**/*.js",
   ],
   theme: {
     extend: {},
@@ -10,5 +11,6 @@ module.exports = {
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
+    require('flowbite/plugin'),
   ],
 }
