@@ -61,8 +61,15 @@
     <div class="flex w-full justify-center mt-2">
         {{form_start(form, {'attr':{'class': 'pt-4 px-4 w-8/12 bg-white shadow-lg rounded-lg'}})}}
             {{form_row(form.content)}}
-            {{form_row(form.submit)}}
-        {{form_end(form)}}
+            {% if app.user %}
+                {{form_row(form.submit)}}
+                {{form_end(form)}}
+            {% else %}
+                <div class="flex p-2">
+                    <a href="{{ path('app_login') }}" class="text-white bg-gradient-to-r from-emerald-700 via-emerald-800 to-emerald-900 hover:bg-gradient-to-l font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Connexion</a>
+                </div>
+            {% endif %}
+        
     </div>
 </div>
 

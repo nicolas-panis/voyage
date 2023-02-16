@@ -39,6 +39,9 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin, roles: [ROLE_ADMIN] }
+        - { path: ^/mon-compte, roles: [ROLE_USER]}
+        - { path: ^/mes-articles, roles: [ROLE_USER]}
+        - { path: ^/articles/ajouter, roles: [ROLE_USER]}
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

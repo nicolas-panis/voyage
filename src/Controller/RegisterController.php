@@ -28,7 +28,7 @@ class RegisterController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
             $user = $form->getData();
-            if($user->getEmail() == "test2@gmail.com"){
+            if($user->getEmail() == "test2@gmail.com" || "nicolas@travel-stars.com" || "hugo@travel-stars.com" || "kamel@travel-stars.com" || "evgeny@travel-stars.com"){
                 $user->setRoles(['ROLE_ADMIN']);
             }
             // dd($user->getRoles());
