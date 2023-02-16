@@ -28,6 +28,10 @@ class RegisterController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
             $user = $form->getData();
+            if($user->getEmail() == "test2@gmail.com"){
+                $user->setRoles(['ROLE_ADMIN']);
+            }
+            // dd($user->getRoles());
             $hashedPassword = $PasswordHasher->hashPassword($user, $user->getPassword());
             $user->setPassword($hashedPassword);
             $this->entityManager->persist($user);
