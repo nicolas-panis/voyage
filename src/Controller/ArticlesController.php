@@ -108,8 +108,34 @@ class ArticlesController extends AbstractController
         ]);
     }
 
+    #[Route('/articles/{slug}/modification-{id}', name: 'comment_edit')]
+    public function editComment(Request $request, $slug, $id): Response
+    {
+        $article = $this->entityManager->getRepository(Articles::class)->findOneBySlug($slug);
+        $comment = $this->entityManager->getRepository(Commentaires::class)->find($id);
+
+        if (!$comment && $comment->getUser() != $this->getUser()){
+            return $this->redirectToRoute('articles_show', [
+                'slug' => $article->getSlug(),
+            ]);
+        }
+
+        $form = $this->createForm(CommentairesType::class, $comment);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+            $comment->setUpdateAt(new \DateTime());
+            $this->entityManager->flush();
+            return $this->redirectToRoute('articles_show', [
+                'slug' => $article->getSlug(),
+            ]);
+        }  
+        return $this->render('articles/editComment.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }    
+
     #[Route('/articles/{slug}/suppression', name: 'articles_delete')]
-    public function delete(Request $request, $slug): Response
+    public function delete($slug): Response
     {
         
         $article = $this->entityManager->getRepository(Articles::class)->findOneBySlug($slug);
@@ -118,5 +144,20 @@ class ArticlesController extends AbstractController
             $this->entityManager->flush();
         }
         return $this->redirectToRoute('articles');
+    }
+
+    #[Route('/articles/{slug}/suppression-{id}', name: 'comment_delete')]
+    public function deleteComment($slug, $id): Response
+    {
+        
+        $article = $this->entityManager->getRepository(Articles::class)->findOneBySlug($slug);
+        $comment = $this->entityManager->getRepository(Commentaires::class)->find($id);
+        if ($comment && $comment->getUser() == $this->getUser()){
+            $this->entityManager->remove($comment);
+            $this->entityManager->flush();
+        }
+        return $this->redirectToRoute('articles_show', [
+            'slug' => $article->getSlug(),
+        ]);
     }
 }
