@@ -137,7 +137,6 @@ class ArticlesController extends AbstractController
     #[Route('/articles/{slug}/suppression', name: 'articles_delete')]
     public function delete($slug): Response
     {
-        
         $article = $this->entityManager->getRepository(Articles::class)->findOneBySlug($slug);
         if ($article && $article->getUser() == $this->getUser()){
             $this->entityManager->remove($article);

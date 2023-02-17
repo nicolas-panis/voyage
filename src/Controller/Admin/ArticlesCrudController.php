@@ -28,6 +28,7 @@ class ArticlesCrudController extends AbstractCrudController
         return $actions
             ->remove(Crud::PAGE_INDEX, Action::NEW)
             ->remove(Crud::PAGE_INDEX, Action::EDIT)
+            ->remove(Crud::PAGE_DETAIL, Action::EDIT)
             ->add(Crud::PAGE_INDEX, Action::DETAIL);
     }
 
@@ -42,7 +43,7 @@ class ArticlesCrudController extends AbstractCrudController
     {
         return [
 
-            AssociationField::new('user'),
+            AssociationField::new('user')->renderAsEmbeddedForm(),
 
             TextField::new('title', 'Titre'),
 

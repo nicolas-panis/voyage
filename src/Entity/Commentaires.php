@@ -36,10 +36,10 @@ class Commentaires
         return $this->id;
     }
 
-    public function __toString()
-    {
-        return $this->getId();
-    }
+    // public function __toString()
+    // {
+    //     return $this->getId();
+    // }
 
     public function getContent(): ?string
     {

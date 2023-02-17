@@ -40,7 +40,7 @@ class Articles
     #[Gedmo\Slug(fields: ['title'])]
     private ?string $slug = null;
 
-    #[ORM\OneToMany(mappedBy: 'articles', targetEntity: Commentaires::class)]
+    #[ORM\OneToMany(mappedBy: 'articles', targetEntity: Commentaires::class, cascade: ['persist', 'remove'])]
     private Collection $commentaires;
 
     #[ORM\ManyToMany(targetEntity: Categories::class, inversedBy: 'articles')]
