@@ -38,15 +38,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Commentaires::class)]
     private Collection $commentaires;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reponses::class)]
-    private Collection $reponses;
-
-
     public function __construct()
     {
         $this->articles = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
-        $this->reponses = new ArrayCollection();
     }
 
     public function __toString()
@@ -196,33 +191,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Reponses>
-     */
-    public function getReponses(): Collection
-    {
-        return $this->reponses;
-    }
-
-    public function addReponse(Reponses $reponse): self
-    {
-        if (!$this->reponses->contains($reponse)) {
-            $this->reponses->add($reponse);
-            $reponse->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReponse(Reponses $reponse): self
-    {
-        if ($this->reponses->removeElement($reponse)) {
-            // set the owning side to null (unless already changed)
-            if ($reponse->getUser() === $this) {
-                $reponse->setUser(null);
-            }
-        }
-
-        return $this;
-    }
 }

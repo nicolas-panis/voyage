@@ -22,16 +22,10 @@
                 <hr class="my-2 w-full border border-slate-500">
                 <div class="flex justify-between text-sm px-4 mt-5">
                     <p id="Comment"><a href="#Comment"><i class="fa-regular fa-message"></i> Commentaire ({{articles.commentaires|length}})</a> </p>
-                    {# <a href="#">partager</a> #}
                 </div>
             </div>    
         </div>
     </div>
-    
-{# {% if app.user == articles.user %}
-    <a href = "{{ path('articles_edit', {'slug': articles.slug}) }}">Modifier</a>
-    <a href = "{{ path('articles_delete', {'slug': articles.slug}) }}">Supprimer</a>
-{% endif %} #}
 
 <div id="allComment" class="flex flex-col gap-0.5 w-full items-center" style="display:none;">
     {% for commentaires in commentaires %}
@@ -45,14 +39,6 @@
                 </div>
                 <hr class=" my-3 w-full border-0.5 border-slate-300">
                 <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{commentaires.content}}</p>
-                {# <form method = "get">
-                    <button id = "add_Rep" type = "button" name = "add_Rep" value = {{commentaires.id}}  class="inline-flex w-full items-center text-sm font-medium justify-end text-gray-700 rounded-lg underline">
-                    Réponse
-                    </button>
-                </form>  #}
-                {# <a href="#" class="inline-flex w-full items-center text-sm font-medium justify-end text-gray-700 rounded-lg underline">
-                    Réponse
-                </a> #}
             </div>
             
         {% endif %}
@@ -72,10 +58,6 @@
         
     </div>
 </div>
-
-    {# <div id = "form_rep" class="flex w-full justify-center mt-8" style = "display: none">
-        {{form(form_reponse)}}
-    </div> #}
 {% endblock %}
 
 

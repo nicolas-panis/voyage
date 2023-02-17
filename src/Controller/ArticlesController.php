@@ -4,13 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Articles;
 use App\Entity\Commentaires;
-use App\Entity\Categories;
-use App\Entity\Reponses;
 use App\Form\ArticlesType;
 use App\Form\CommentairesType;
-use App\Form\ReponsesType;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\Id;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -76,29 +72,11 @@ class ArticlesController extends AbstractController
             ]);
         }
         $commentaires = $this->entityManager->getRepository(Commentaires::class)->findAll();
-
-        // $commentaires_id = $request->query->get('add_Rep');
-
-        // $reponse = new Reponses();
-        // $form_reponse = $this->createForm(ReponsesType::class, $reponse);
-        // $form_reponse->handleRequest($request);
-        // if ($form_reponse->isSubmitted() && $form_reponse->isValid()){
-        //     $reponse->setUser($this->getUser());
-        //     $reponse->setCommentaires($this->entityManager->getRepository(Commentaires::class)->find($commentaires_id));
-        //     $reponse->setCreatedAt(new \DateTime());
-        //     $reponse->setUpdateAt(new \DateTime());
-        //     $this->entityManager->persist($reponse);
-        //     $this->entityManager->flush();
-        //     return $this->redirectToRoute('articles_show', [
-        //         'slug' => $article->getSlug(),
-        //     ]);
-        // }
         
         return $this->render('articles/showArticles.html.twig', [
             'articles' => $article,
             'form' => $form->createView(),
             'commentaires' => $commentaires,
-            // 'form_reponse' => $form_reponse->createView(),
         ]);
     }
     
