@@ -42,12 +42,13 @@
                     {% if commentaires.createdAt != commentaires.updateAt %}
                         <p class="text-end text-xs">(modifié)</p>
                     {% endif %}
-                    {% if commentaires.user == app.user  %}
-                        <div>
-                            <a class="underline text-sm text-slate-400" href="{{ path('comment_edit', {'slug': articles.slug, 'id': commentaires.id}) }}">Modifier</a>
-                            <a class="underline text-sm text-slate-400" href="{{ path('comment_delete', {'slug': articles.slug, 'id': commentaires.id}) }}">supprimer</a>
-                        </div>
-                    {% endif %}
+                    <div class = "text-end w-full">
+                        <a class="underline text-sm text-slate-400" href="{{ path('add_Reponse', {'slug': articles.slug, 'id': commentaires.id}) }}">Réponses ({{commentaires.reponses|length}})</a>
+                        {% if commentaires.user == app.user  %}
+                                <a class="underline text-sm text-slate-400" href="{{ path('comment_edit', {'slug': articles.slug, 'id': commentaires.id}) }}">Modifier</a>
+                                <a class="underline text-sm text-slate-400" href="{{ path('comment_delete', {'slug': articles.slug, 'id': commentaires.id}) }}">Supprimer</a>
+                        {% endif %}
+                    </div>
                 </div>
                 
                 

@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reponses{% endblock %}
+
+{% block body %}
+
+<div class="flex flex-col gap-0.5 w-full items-center">
+    <div class="w-8/12 p-2 bg-white border border-gray-200 rounded-lg shadow">
+        <div class="flex items-center space-x-2">
+            <img class="w-8 h-8 rounded-full" src="{{asset('assets/img/avatar.jpg')}}" alt="">
+            <div class="font-medium">
+                <div>{{commentaires.user.login}}</div>
+            </div>
+        </div>
+        <hr class=" my-3 w-full border-0.5 border-slate-300">
+        <p class="mb-3 px-4 pt-4 font-normal text-gray-700 text-justify">{{commentaires.content}}</p>
+        <div class="flex justify-between px-4">
+            {% if commentaires.createdAt != commentaires.updateAt %}
+                <p class="text-end text-xs">(modifié)</p>
+            {% endif %}
+        </div>            
+    </div>
+</div>
+<div class="flex flex-col gap-0.5 w-full items-center px-12 mt-1">
+{% for reponses in reponses %}
+        {% if reponses.comment.id == commentaires.id %}
+            <div class="w-8/12 p-2 bg-white border border-gray-200 rounded-lg shadow">
+                <div class="flex items-center space-x-2">
+                    <img class="w-8 h-8 rounded-full" src="{{asset('assets/img/avatar.jpg')}}" alt="">
+                    <div class="font-medium">
+                        <div>{{reponses.user.login}}</div>
+                    </div>
+                </div>
+                <hr class=" my-3 w-full border-0.5 border-slate-300">
+                <p class="mb-3 px-4 pt-4 font-normal text-gray-700 text-justify">{{reponses.content}}</p>
+                <div class="flex justify-between px-4">
+                    {% if reponses.createdAt != reponses.updateAt %}
+                        <p class="text-end text-xs">(modifié)</p>
+                    {% endif %}
+                </div>
+                
+                
+            </div>
+        {% endif %}
+        
+    {% endfor %}
+</div>
+<div class="flex w-full justify-center mt-2">
+        {{form_start(form, {'attr':{'class': 'pt-4 px-4 w-8/12 bg-white shadow-lg rounded-lg'}})}}
+            {{form_row(form.content)}}
+                {{form_row(form.submit)}}
+                {{form_end(form)}}
+        
+    </div>
+
+{% endblock %}

@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Articles;
 use App\Entity\Commentaires;
+use App\Entity\Reponses;
 use App\Form\ArticlesType;
 use App\Form\CommentairesType;
+use App\Form\ReponsesType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -131,6 +133,37 @@ class ArticlesController extends AbstractController
         }  
         return $this->render('articles/editComment.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }    
+
+    #[Route('/articles/{slug}/commentaire-{id}', name: 'add_Reponse')]
+    public function addReponse(Request $request, $slug, $id): Response
+    {
+        $article = $this->entityManager->getRepository(Articles::class)->findOneBySlug($slug);
+        $comment = $this->entityManager->getRepository(Commentaires::class)->find($id);
+        $reponse = new Reponses();
+
+        $form = $this->createForm(ReponsesType::class, $reponse);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+            $reponse->setUser($this->getUser());
+            $reponse->setComment($comment);
+            $reponse->setCreatedAt(new \DateTime());
+            $reponse->setUpdateAt(new \DateTime());
+            $this->entityManager->persist($reponse);
+            $this->entityManager->flush();
+            return $this->redirectToRoute('add_Reponse', [
+                'slug' => $article->getSlug(),
+                'id' => $comment->getId(),
+            ]);
+        }  
+
+
+        $reponses = $this->entityManager->getRepository(Reponses::class)->findAll();
+        return $this->render('articles/addReponse.html.twig', [
+            'form' => $form->createView(),
+            'commentaires' => $comment,
+            'reponses' => $reponses,
         ]);
     }    
 
