@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Classe\Mail;
 use App\Entity\User;
 use App\Form\RegisterType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -28,17 +29,31 @@ class RegisterController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
             $user = $form->getData();
-            if($user->getEmail() == "backup@backuptravelstars.com"){
+
+            $search_email = $this->entityManager->getRepository(User::class)->findOneByEmail($user->getEmail());
+            
+            if(!$search_email){
+                if($user->getEmail() == "backup@backuptravelstars.com"){
                 $user->setRoles(['ROLE_SUPER_ADMIN', 'ROLE_ADMIN', 'ROLE_MODERATEUR', 'ROLE_USER']);
-            }else if($user->getEmail() == "nicolas@travel-stars.com" || $user->getEmail() == "hugo@travel-stars.com" || $user->getEmail() == "kamel@travel-stars.com" || $user->getEmail() == "evgeny@travel-stars.com"){
-                $user->setRoles(['ROLE_ADMIN', 'ROLE_MODERATEUR', 'ROLE_USER']);
+                }else if($user->getEmail() == "nicolas@travel-stars.com" || $user->getEmail() == "hugo@travel-stars.com" || $user->getEmail() == "kamel@travel-stars.com" || $user->getEmail() == "evgeny@travel-stars.com"){
+                    $user->setRoles(['ROLE_ADMIN', 'ROLE_MODERATEUR', 'ROLE_USER']);
+                }else{
+                    $user->setRoles(['ROLE_USER']);
+                }
+
+                $hashedPassword = $PasswordHasher->hashPassword($user, $user->getPassword());
+                $user->setPassword($hashedPassword);
+                $this->entityManager->persist($user);
+                $this->entityManager->flush();
+
+                // $mail = new Mail();
+                // $subject = 'Merci de votre inscription chez nous !';
+                // $content = 'Bienvenue '.$user->getlogin().' chez Travel Stars, le blog dédié aux voyages !';
+                // $mail->send($user->getEmail(), $user->getLogin(), $subject, $content);
             }else{
-                $user->setRoles(['ROLE_USER']);
+
             }
-            $hashedPassword = $PasswordHasher->hashPassword($user, $user->getPassword());
-            $user->setPassword($hashedPassword);
-            $this->entityManager->persist($user);
-            $this->entityManager->flush();
+ 
             return $this->redirectToRoute('app_login');
         }
 
