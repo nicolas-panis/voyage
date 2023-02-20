@@ -43,8 +43,10 @@
                         <p class="text-end text-xs">(modifié)</p>
                     {% endif %}
                     {% if commentaires.user == app.user  %}
-                        <a class="underline text-sm text-slate-400" href="{{ path('comment_edit', {'slug': articles.slug, 'id': commentaires.id}) }}">Modifier</a>
-                        <a class="underline text-sm text-slate-400" href="{{ path('comment_delete', {'slug': articles.slug, 'id': commentaires.id}) }}">supprimer</a>
+                        <div>
+                            <a class="underline text-sm text-slate-400" href="{{ path('comment_edit', {'slug': articles.slug, 'id': commentaires.id}) }}">Modifier</a>
+                            <a class="underline text-sm text-slate-400" href="{{ path('comment_delete', {'slug': articles.slug, 'id': commentaires.id}) }}">supprimer</a>
+                        </div>
                     {% endif %}
                 </div>
                 

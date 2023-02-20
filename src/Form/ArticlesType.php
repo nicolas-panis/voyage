@@ -7,6 +7,7 @@ use App\Entity\Categories;
 use EasyCorp\Bundle\EasyAdminBundle\Form\Type\TextEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -50,6 +51,17 @@ class ArticlesType extends AbstractType
                     'class' => "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                 ] 
             ])
+
+            ->add('country', CountryType::class, [
+                'label' => "Pays :",
+                'label_attr' => [
+                    'class' => "block mb-2 text-sm font-medium text-gray-900"
+                ],
+                'attr' => [
+                    'class' => "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+                ] 
+            ])
+
             ->add('categories', EntityType::class, [
                 'class' => Categories::class,
                 'label_attr' => [

@@ -42,6 +42,7 @@ security:
         - { path: ^/mon-compte, roles: [ROLE_USER]}
         - { path: ^/mes-articles, roles: [ROLE_USER]}
         - { path: ^/articles/ajouter, roles: [ROLE_USER]}
+        - { route: articles_show, roles: [ROLE_USER]}
         # - { path: ^/profile, roles: ROLE_USER }
     role_hierarchy:
         ROLE_SUPER_ADMIN: ROLE_ADMIN

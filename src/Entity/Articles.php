@@ -46,6 +46,9 @@ class Articles
     #[ORM\ManyToMany(targetEntity: Categories::class, inversedBy: 'articles')]
     private Collection $categories;
 
+    #[ORM\Column(length: 255)]
+    private ?string $country = null;
+
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
@@ -196,6 +199,18 @@ class Articles
     public function removeCategory(Categories $category): self
     {
         $this->categories->removeElement($category);
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(string $country): self
+    {
+        $this->country = $country;
+
         return $this;
     }
 }
