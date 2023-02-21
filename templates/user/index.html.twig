@@ -3,35 +3,47 @@
 {% block title %}Mon compte | Travel Stars{% endblock %}
 
 {% block body %}
-    <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow">
-        <div class="flex justify-end px-4 pt-4">
-            <button id="dropdownButton" data-dropdown-toggle="dropdown" class="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5" type="button">
-                <span class="sr-only">Open dropdown</span>
-                <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path></svg>
-            </button>
-            <!-- Dropdown menu -->
-            <div id="dropdown" class="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
-                <ul class="py-2" aria-labelledby="dropdownButton">
-                <li>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Edit</a>
-                </li>
-                <li>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Export Data</a>
-                </li>
-                <li>
-                    <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Delete</a>
-                </li>
-                </ul>
+<div class="flex justify-center w-full mt-8"> 
+<div class="grid mb-8 border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 md:mb-12 md:grid-cols-2">
+    <figure class=" flex flex-col items-center justify-center p-8 text-center bg-white border-b border-gray-200 rounded-l-lg md:rounded-t-none md:rounded-tl-lg md:border-r dark:bg-gray-800 dark:border-gray-700">
+        <blockquote class="max-w-2xl mx-auto mb-4 text-gray-500 lg:mb-8 dark:text-gray-400">
+            <h3 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Vos informations</h3>
+            <div class="space-y-2">
+                <p class="font-light">{{app.user.login}}</p>
+                <p class="text-sky-600">{{app.user.email}}</p>
+                <p>
+                    {% if is_granted('ROLE_SUPER_ADMIN') %}
+                        <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">Super admin</span>
+                    {% elseif is_granted('ROLE_ADMIN') %}
+                        <span class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-yellow-900 dark:text-yellow-300">Admin</span>
+                    {% elseif is_granted('ROLE_MODERATEUR') %}
+                        <span class="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">Modérateur</span>
+                    {% else %}
+                        <span class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">Utilisateur</span>
+                    {% endif %}
+                </p>
             </div>
-        </div>
-        <div class="flex flex-col items-center pb-10">
-            <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="{{asset('assets/img/avatar.jpg')}}" alt="Bonnie image"/>
-            <h5 class="mb-1 text-xl font-medium text-gray-900">{{app.user.login|capitalize}}</h5>
-            <span class="text-sm text-gray-500 dark:text-gray-400">{{app.user.email}}</span>
-            <div class="flex mt-4 space-x-3 md:mt-6">
-                {# <a href="{{ path('user_addAvatar')}}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">Ajouter un avatar</a> #}
-                
-            </div>
-        </div>
-    </div>  
+        </blockquote>    
+    </figure>
+    <figure class="flex flex-col items-center justify-center p-8 text-center bg-white border-b border-gray-200 rounded-r-lg dark:bg-gray-800 dark:border-gray-700">
+        <blockquote class="max-w-2xl mx-auto mb-4 text-gray-500 lg:mb-8 dark:text-gray-400">
+            <h3 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Vos articles</h3>
+                {% if app.user.articles|length == 0 %}
+                    <p class="text-sm">Vous n'avez pas encore écris d'article.<br/> <a class="text-sky-600 underline text-sm" href="{{ path('articles_add') }}">Ecrire mon premier article.</a></p>
+                {% else %}    
+                    {% for articles in app.user.articles %}
+                        <a href="{{ path('articles_show', {'slug': articles.slug}) }}" class="flex flex-col mb-2 items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                            <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src="uploads/articles/{{articles.image}}" alt="">
+                            <div class="flex flex-col justify-between p-4 leading-normal">
+                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{articles.title}}</h5>
+                                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"></p>
+                            </div>
+                        </a>
+                    {% endfor %}
+                {% endif %}
+        </blockquote>
+            
+    </figure>
+</div>
+</div>
 {% endblock %}
