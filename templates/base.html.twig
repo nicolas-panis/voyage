@@ -78,7 +78,7 @@
                 </div>
                 <div class="hidden sm:flex sm:w-1/4 gap-2 grow justify-end">
                     {% if app.user %}
-                        <button id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarName" class="flex text-center items-center text-sm font-medium text-gray-900 rounded-full hover:text-blue-600 md:mr-0 focus:ring-4 focus:ring-gray-100" type="button">
+                        <button id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarName" class="gap-1 flex text-center items-center text-sm font-medium text-gray-900 rounded-full hover:text-blue-600 md:mr-0 focus:ring-4 focus:ring-gray-100" type="button">
                             <span class="sr-only">Open user menu</span>
                             <img class="w-8 h-8 rounded-full" src="{{ asset('assets/img/avatar.jpg') }}" alt="user photo">
                             {{app.user.login}}

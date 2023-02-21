@@ -25,6 +25,11 @@ class RegisterController extends AbstractController
     public function index(Request $request, UserPasswordHasherInterface $PasswordHasher): Response
     {
         $user = new User();
+
+        if ($this->getUser()) {
+            return $this->redirectToRoute('home');
+        }
+
         $form = $this->createForm(RegisterType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
@@ -34,9 +39,9 @@ class RegisterController extends AbstractController
             
             if(!$search_email){
                 if($user->getEmail() == "backup@backuptravelstars.com"){
-                $user->setRoles(['ROLE_SUPER_ADMIN', 'ROLE_ADMIN', 'ROLE_MODERATEUR', 'ROLE_USER']);
+                $user->setRoles(['ROLE_SUPER_ADMIN']);
                 }else if($user->getEmail() == "nicolas@travel-stars.com" || $user->getEmail() == "hugo@travel-stars.com" || $user->getEmail() == "kamel@travel-stars.com" || $user->getEmail() == "evgeny@travel-stars.com"){
-                    $user->setRoles(['ROLE_ADMIN', 'ROLE_MODERATEUR', 'ROLE_USER']);
+                    $user->setRoles(['ROLE_ADMIN']);
                 }else{
                     $user->setRoles(['ROLE_USER']);
                 }
