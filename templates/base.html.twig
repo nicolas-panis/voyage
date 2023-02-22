@@ -32,6 +32,7 @@
                     </div>
                     <div class="hidden sm:flex gap-5">
                         <a href="{{ path('articles') }}" class="font-semibold text-base">Articles</a>
+                        <a href="{{ path('equipe') }}" class="font-semibold text-base">L'équipe</a>
                     </div>
                 </div>
 
@@ -136,7 +137,8 @@
                 <button id="cross-nav"><i class="fa-solid fa-xmark text-lg font-bold"></i></button>
             </div>
             <div class="flex flex-col h-full pl-4 mt-6">
-                <a href="{{ asset('articles') }}">Articles</a>
+                <a class="mb-4" href="{{ path('articles') }}">Articles</a>
+                <a class="mb-4"href="{{ path('equipe') }}">L'équipe</a>
             </div>
         </aside>
 

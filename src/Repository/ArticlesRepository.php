@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Controller\ArticlesController;
+use App\Classe\Search;
 use App\Entity\Articles;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -40,6 +40,35 @@ class ArticlesRepository extends ServiceEntityRepository
         }
     }
     
+    /**
+     * @return Articles[]
+     */
+    public function findWithSearch(Search $search)
+    {
+        $query = $this->createQueryBuilder('a')
+            ->select('c', 'a')
+            ->join('a.categories', 'c');
+
+        if(!empty($search->category))
+        {
+            $query = $query->andWhere('c.id IN (:categories)')
+                ->setParameter('categories', $search->category);
+        }
+
+        if(!empty($search->string))
+        {
+            $query = $query->andWhere('a.title LIKE :string')
+                ->setParameter('string', "%{$search->string}%");
+        }
+
+        if(!empty($search->pays))
+        {
+            $query = $query->andWhere('a.country LIKE :pays')
+                ->setParameter('pays', "%{$search->pays}%");
+        }
+        
+        return $query->getQuery()->getResult();
+    }
 
 //    /**
 //     * @return Articles[] Returns an array of Articles objects

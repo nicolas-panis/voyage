@@ -17,14 +17,29 @@ function hidde(){
 }
 crossNav.onclick = hidde;
 
-let btnComment = document.getElementById('Comment');
-function showComment(){
-    let allComment = document.getElementById('allComment');
-    if(allComment.style.display === "none"){
-        allComment.style.display = "flex";
-    }else{
-        allComment.style.display = "none";
-    }
+let filterButton = document.getElementById('filterButton');
+if(filterButton != null){
+    filterButton.addEventListener('click', function ToggleFilter(){
+        let formFilter = document.getElementById('formFilter');
+        if(formFilter.style.display === "none"){
+            formFilter.style.display = "flex";
+        }else{
+            formFilter.style.display = "none";
+        }
+    })
 }
-btnComment.onclick = showComment;
+
+let btnComment = document.getElementById('Comment');
+if(btnComment != null){
+    btnComment.addEventListener('click', function showComment(){
+        let allComment = document.getElementById('allComment');
+        if(allComment.style.display === "none"){
+            allComment.style.display = "flex";
+        }else{
+            allComment.style.display = "none";
+        }
+    })
+}
+
+
 

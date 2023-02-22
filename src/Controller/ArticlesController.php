@@ -2,12 +2,14 @@
 
 namespace App\Controller;
 
+use App\Classe\Search;
 use App\Entity\Articles;
 use App\Entity\Commentaires;
 use App\Entity\Reponses;
 use App\Form\ArticlesType;
 use App\Form\CommentairesType;
 use App\Form\ReponsesType;
+use App\Form\SearchType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,11 +26,24 @@ class ArticlesController extends AbstractController
     }
 
     #[Route('/articles', name: 'articles')]
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $article = $this->entityManager->getRepository(Articles::class)->findAll();
+        
+
+        $search = new Search();
+
+        $form = $this->createForm(SearchType::class, $search);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+            $article = $this->entityManager->getRepository(Articles::class)->findWithSearch($search);
+        }else{
+            $article = $this->entityManager->getRepository(Articles::class)->findAll();
+        }
+
         return $this->render('articles/index.html.twig', [
-            'articles' => $article
+            'articles' => $article,
+            'form' => $form->createView(),
         ]);
     }
 

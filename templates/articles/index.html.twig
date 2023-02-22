@@ -3,28 +3,48 @@
 {% block title %}Articles | Travel Stars{% endblock %}
 
 {% block body %}
-
+<div class="flex flex-col m-h-[62.5vh] w-full items-center px-4 mb-2">
+    <div  class="flex w-11/12 xl:w-8/12 text-sm text-gray-700 underline">
+        <p id="filterButton" class="cursor-pointer">Filtre</p>
+    </div>
+    <div id="formFilter" class="flex flex-row mt-4 w-11/12 xl:w-8/12  p-4 bg-white border-gray-200 rounded-lg shadow sm:p-6 md:p-8 justify-center" style="display:none;">
+        {{form_start(form, {'attr':{'class': 'flex flex-col md:flex-row justify-center gap-5 items-center'}})}}
+            <div class="flex gap-1 items-center">
+                <i class="fa-solid fa-magnifying-glass"></i>{{form_widget(form.string)}}
+            </div>
+            {{form_row(form.pays)}}
+            {{form_row(form.category)}}
+                
+            {{form_row(form.submit)}}
+        <a class="text-white bg-gradient-to-r from-emerald-700 via-emerald-800 to-emerald-900 hover:bg-gradient-to-l font-medium rounded-lg text-xs px-5 py-2.5 text-center mr-2 mb-2" href="{{ path('articles') }}">Supprimer les filtres</a>
+        {{form_end(form)}}
+    </div>
+</div>
 <div class="flex flex-col m-h-[62.5vh] w-full items-center px-4">
     <div class = "flex flex-col gap-5 items-center w-full sm:flex-row flex-wrap sm:justify-evenly md:flex-col">
-    {% for articles in articles %}
-                <div class=" h-auto bg-white border-gray-200 rounded-2xl shadow-2xl w-9/12 sm:w-8/12 sm:h-[450px] md:hidden hover:sm:bg-gray-100">
-                    <a href="{{ path('articles_show', {'slug': articles.slug}) }}">
-                    <img class="rounded-t-xl w-full sm:h-1/2" src="/uploads/articles/{{articles.image}}" alt="" />
-                    <div class="p-5 sm:h-1/2">
-                        <h5 class="mb-2 text-lg font-medium tracking-tight text-gray-900">{{articles.title}}</h5>
-                        <p class=" test mb-3 font-light text-sm text-gray-700 dark:text-gray-400">{{articles.content|slice(0,150) ~ "..."}}</p>
-                    </div>
-                    </a>
+    {% if articles == null %}
+        <p>Il n'y a pas d'articles correspondant à votre recherche</p>
+    {% else %}
+        {% for articles in articles %}
+            <div class=" h-auto bg-white border-gray-200 rounded-2xl shadow-2xl w-9/12 sm:w-8/12 sm:h-[450px] md:hidden hover:sm:bg-gray-100">
+                <a href="{{ path('articles_show', {'slug': articles.slug}) }}">
+                <img class="rounded-t-xl w-full sm:h-1/2" src="/uploads/articles/{{articles.image}}" alt="" />
+                <div class="p-5 sm:h-1/2">
+                    <h5 class="mb-2 text-lg font-medium tracking-tight text-gray-900">{{articles.title}}</h5>
+                    <p class=" test mb-3 font-light text-sm text-gray-700 dark:text-gray-400">{{articles.content|slice(0,150) ~ "..."}}</p>
                 </div>
-                
-                <a href="{{ path('articles_show', {'slug': articles.slug}) }}" class="hidden items-center bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 md:flex w-11/12 h-64 xl:w-8/12">
-                    <img class="object-cover w-full rounded-t-lg h-full md:w-1/3 md:rounded-none md:rounded-l-lg" src="/uploads/articles/{{articles.image}}" alt="">
-                    <div class="flex flex-col justify-between p-4 leading-normal md:w-2/3">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{articles.title}}</h5>
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{articles.content|slice(0,150) ~ "..."}}</p>
-                    </div>
                 </a>
-    {% endfor %}
+            </div>
+            
+            <a href="{{ path('articles_show', {'slug': articles.slug}) }}" class="hidden items-center bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 md:flex w-11/12 h-64 xl:w-8/12">
+                <img class="object-cover w-full rounded-t-lg h-full md:w-1/3 md:rounded-none md:rounded-l-lg" src="/uploads/articles/{{articles.image}}" alt="">
+                <div class="flex flex-col justify-between p-4 leading-normal md:w-2/3">
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{articles.title}}</h5>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{articles.content|slice(0,150) ~ "..."}}</p>
+                </div>
+            </a>
+        {% endfor %}
+    {% endif %}
     </div>
 </div>
 
