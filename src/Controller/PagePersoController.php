@@ -13,6 +13,12 @@ class PagePersoController extends AbstractController
     {
         return $this->render('page_perso/namibia.html.twig');
     }
+
+    #[Route('/australie', name: 'articles_australie')]
+    public function australie(): Response
+    {
+        return $this->render('page_perso/australie.html.twig');
+    }
     
     
     #[Route('/notre-equipe', name: 'equipe')]
