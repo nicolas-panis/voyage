@@ -20,6 +20,12 @@ class PagePersoController extends AbstractController
         return $this->render('page_perso/australie.html.twig');
     }
     
+    #[Route('/japon', name: 'articles_japon')]
+    public function japon(): Response
+    {
+        return $this->render('page_perso/japon.html.twig');
+    }
+    
     
     #[Route('/notre-equipe', name: 'equipe')]
     public function Equipe(): Response

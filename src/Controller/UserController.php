@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Classe\Mail;
 use App\Entity\Articles;
+use App\Form\InformationChangeType;
 use App\Form\PasswordChangeType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,20 +22,35 @@ class UserController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-    #[Route('/mes-articles', name: 'user_articles')]
-    public function myArticle(): Response
-    {
-        $article = $this->entityManager->getRepository(Articles::class)->findAll();
-
-        return $this->render('user/myArticles.html.twig', [
-            'articles' => $article,
-        ]);
-    }
-
     #[Route('/mon-compte', name: 'user_compte')]
     public function index(): Response
     {
         return $this->render('user/index.html.twig');
+    }
+    
+    #[Route('/mon-compte/modifier-mes-informations', name: 'user_change_info')]
+    public function editUser(Request $request): Response
+    {
+
+        $user = $this->getUser();
+
+        $form = $this->createForm(InformationChangeType::class, $user);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $this->entityManager->flush();
+
+            // $mail = new Mail();
+            // $subject = 'Vos informations ont bien été mis à jour';
+            // $content = "Bonjour ".$user->getLogin()." vos informations viennent d'être mis à jour avec succès.";
+            // $mail->sendInformation($user->getEmail(), $user->getLogin(), $subject, $content);
+
+            return $this->redirectToRoute('user_compte');
+        }
+
+        return $this->render('user/informationChange.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
     #[Route('/mon-compte/changement-mot-de-passe', name: 'user_change_password')]
@@ -59,7 +75,7 @@ class UserController extends AbstractController
                 // $mail = new Mail();
                 // $subject = 'Votre mot de passe à bien été changé';
                 // $content = "Bonjour ".$user->getLogin()." votre mot de passe vient d'être mis à jour avec succès.";
-                // $mail->send($user->getEmail(), $user->getLogin(), $subject, $content);
+                // $mail->sendPassword($user->getEmail(), $user->getLogin(), $subject, $content);
 
                 return $this->redirectToRoute('user_compte');
             }

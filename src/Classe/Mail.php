@@ -41,4 +41,66 @@ class Mail
         $response = $mj->post(Resources::$Email, ['body' => $body]);
         $response->success();
     }
+
+    public function sendPassword($to_email, $to_name, $subject, $content)
+    {
+
+        $mj = new Client($this->api_key, $this->api_key_secret, true, ['version' => 'v3.1']);
+
+        $body = [
+            'Messages' => [
+                [
+                    'From' => [
+                        'Email' => "nicolas.panis@laplateforme.io",
+                        'Name' => "Travel Stars"
+                    ],
+                    'To' => [
+                        [
+                            'Email' => $to_email,
+                            'Name' => $to_name,
+                        ]
+                    ],
+                    'TemplateID' => 4606881,
+                    'TemplateLanguage' => true,
+                    'Subject' => $subject,
+                    'Variables' => [
+                        'content' => $content,
+                    ]
+                ]
+            ]
+        ];
+        $response = $mj->post(Resources::$Email, ['body' => $body]);
+        $response->success();
+    }
+
+    public function sendInformation($to_email, $to_name, $subject, $content)
+    {
+
+        $mj = new Client($this->api_key, $this->api_key_secret, true, ['version' => 'v3.1']);
+
+        $body = [
+            'Messages' => [
+                [
+                    'From' => [
+                        'Email' => "nicolas.panis@laplateforme.io",
+                        'Name' => "Travel Stars"
+                    ],
+                    'To' => [
+                        [
+                            'Email' => $to_email,
+                            'Name' => $to_name,
+                        ]
+                    ],
+                    'TemplateID' => 4606926,
+                    'TemplateLanguage' => true,
+                    'Subject' => $subject,
+                    'Variables' => [
+                        'content' => $content,
+                    ]
+                ]
+            ]
+        ];
+        $response = $mj->post(Resources::$Email, ['body' => $body]);
+        $response->success();
+    }
 }

@@ -7,11 +7,11 @@
 <div class="grid mb-8 border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 md:mb-12 md:grid-cols-2">
     <figure class=" flex flex-col items-center justify-center p-8 text-center bg-white border-b border-gray-200 rounded-l-lg md:rounded-t-none md:rounded-tl-lg md:border-r dark:bg-gray-800 dark:border-gray-700">
         <blockquote class="max-w-2xl mx-auto mb-4 text-gray-500 lg:mb-8 dark:text-gray-400">
-            <h3 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Vos informations</h3>
-            <div class="space-y-2">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Vos informations</h3>
+            <div class="space-y-2 mb-4">
                 <p class="font-light">{{app.user.login}}</p>
                 <p class="text-sky-600">{{app.user.email}}</p>
-                <p>
+                <p class="m-4">
                     {% if is_granted('ROLE_SUPER_ADMIN') %}
                         <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">Super admin</span>
                     {% elseif is_granted('ROLE_ADMIN') %}
@@ -23,6 +23,10 @@
                     {% endif %}
                 </p>
             </div>
+            <div class="flex gap-2 mt-8">
+                <a href="{{ path('user_change_password') }}" class="bg-emerald-50 hover:bg-emerald-200 text-black text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-emerald-400">Modifier mot de passe</a>
+                <a href="{{ path('user_change_info') }}" class="bg-emerald-50 hover:bg-emerald-200 text-black text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-emerald-400">Modifier informations</a>
+            </div>
         </blockquote>    
     </figure>
     <figure class="flex flex-col items-center justify-center p-8 text-center bg-white border-b border-gray-200 rounded-r-lg dark:bg-gray-800 dark:border-gray-700">
@@ -32,13 +36,17 @@
                     <p class="text-sm">Vous n'avez pas encore écris d'article.<br/> <a class="text-sky-600 underline text-sm" href="{{ path('articles_add') }}">Ecrire mon premier article.</a></p>
                 {% else %}    
                     {% for articles in app.user.articles %}
-                        <a href="{{ path('articles_show', {'slug': articles.slug}) }}" class="flex flex-col mb-2 items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                        <a href="{{ path('articles_show', {'slug': articles.slug}) }}" class=" mt-8 flex flex-col mb-2 items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
                             <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src="uploads/articles/{{articles.image}}" alt="">
                             <div class="flex flex-col justify-between p-4 leading-normal">
                                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{articles.title}}</h5>
                                 <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"></p>
                             </div>
                         </a>
+                        <div class="flex gap-2 justify-end mt-2 mb-4">
+                            <a href = "{{ path('articles_edit', {'slug': articles.slug}) }}"><i class="fa-solid fa-gear text-gray-500"></i></a> |
+                            <a href = "{{ path('articles_delete', {'slug': articles.slug}) }}"><i class="fa-solid fa-trash-can text-red-900"></i></a> 
+                        </div>
                     {% endfor %}
                 {% endif %}
         </blockquote>

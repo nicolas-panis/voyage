@@ -50,22 +50,26 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
 
+        
+        yield MenuItem::section('Articles');
+        yield MenuItem::linkToCrud('Tous les articles', '', Articles::class)->setAction('index');
+        yield MenuItem::linkToCrud('Ajouter un article','', Articles::class)->setAction('new');
+        
+        
+        yield MenuItem::section('Catégories');
+        yield MenuItem::linkToCrud('Mes catégories','', Categories::class)->setAction('index');
+        yield MenuItem::linkToCrud('Ajouter une catégorie','', Categories::class)->setAction('new');
+        
+        yield MenuItem::section('');
         if($this->isGranted('ROLE_SUPER_ADMIN') || $this->isGranted('ROLE_ADMIN')){
             yield MenuItem::linkToCrud('User', 'fas fa-users', User::class);
         }
 
-        yield MenuItem::section('Articles');
-        yield MenuItem::subMenu('Articles', 'fa-regular fa-newspaper')->setSubItems([
-            MenuItem::linkToCrud('Tous les articles', '', Articles::class)->setAction('index'),
-            MenuItem::linkToCrud('Ajouter un article','', Articles::class)->setAction('new'),
-        ]);
+        yield MenuItem::section('Accès au site');
+        yield MenuItem::linkToRoute('Retour au site', 'fa fa-home', 'home');
+        yield MenuItem::linkToRoute('Voir les articles', 'fa-regular fa-newspaper', 'articles');
+        yield MenuItem::linkToUrl('Se déconnecter', 'fa-regular fa-circle-xmark text-danger', 'http://127.0.0.1:8000/deconnexion');
         
-        yield MenuItem::subMenu('Categories', 'fa-solid fa-tags')->setSubItems([
-            MenuItem::linkToCrud('Mes catégories','', Categories::class)->setAction('index'),
-            MenuItem::linkToCrud('Ajouter une catégorie','', Categories::class)->setAction('new'),
-
-        ]);
     }
 }

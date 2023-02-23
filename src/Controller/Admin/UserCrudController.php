@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
@@ -29,8 +30,8 @@ class UserCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('Login'),
-            EmailField::new('Email'), 
+            TextField::new('Login')->hideWhenUpdating(),
+            EmailField::new('Email')->hideWhenUpdating(),
             ChoiceField::new('roles')
                 ->allowMultipleChoices()
                 ->renderAsBadges([
@@ -45,9 +46,9 @@ class UserCrudController extends AbstractCrudController
                     'Modérateur' => 'ROLE_MODERATEUR',
                     'User' => 'ROLE_USER'
                 ]),
-            
-            AssociationField::new('articles'),
-            AssociationField::new('commentaires'),
+                
+            AssociationField::new('articles')->hideWhenUpdating(),
+            AssociationField::new('commentaires')->hideWhenUpdating(),
     ];
     }
     

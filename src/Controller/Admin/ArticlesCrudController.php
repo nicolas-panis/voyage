@@ -37,7 +37,8 @@ class ArticlesCrudController extends AbstractCrudController
     {
         return $crud
             ->setPageTitle(Crud::PAGE_NEW, 'Ajouter un article')
-            ->setPageTitle(Crud::PAGE_INDEX, 'Tous les articles');
+            ->setPageTitle(Crud::PAGE_INDEX, 'Tous les articles')
+            ->setPageTitle(Crud::PAGE_EDIT, 'Modifier article');
     }
     
     public function configureFields(string $pageName): iterable

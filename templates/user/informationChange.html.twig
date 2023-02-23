@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes informations | Travel Stars{% endblock %}
+
+{% block body %}
+<div class="flex flex-col m-h-[62.5vh] w-full items-center px-4">
+    <div class="mt-8 max-w-sm w-full p-4 bg-white border-gray-200 rounded-lg shadow sm:p-6 md:p-8">
+        {{form(form, {'attr':{'class': 'space-y-4'}})}}
+        {# {{form_start(form, {'attr':{'class': 'space-y-4'}})}} #}
+    </div>
+</div>
+{% endblock %}

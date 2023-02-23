@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Japon | Travel Stars{% endblock %}
+
+{% block body %}
+
+    
+        <h1 class = "text-5xl font-bold mb-8 text-center">Voyager au Japon</h1>
+        
+        <img class="h-auto max-w-full" src="{{ asset('assets/img/japon/mont-fuji.jpg')}}" alt="Mont Fuji Japon">
+
+        <div class="flex flex-col mx-8 bg-slate-300 px-6">
+            <p class="mt-8 mb-3 text-center text-lg font-light text-gray-700 md:text-xl dark:text-gray-400">Le mont Fuji : Bien plus qu'une montagne</p>
+            <div class="flex flex-col md:flex-row w-full gap-5 mt-5 mb-5">
+                <img src="{{ asset('assets/img/japon/temple.jpg')}}" class="md:w-1/2 w-full" />
+                <p class="w-full md:w-1/2 font-light text-gray-500 dark:text-gray-400">Au fil des siècles, les Japonais ont tissé un lien spirituel avec la montagne. D'après la légende, le célèbre ascète religieux Hasegawa Kokugyo (1541-1646) l'aurait escaladée plus de 100 fois. Ses exploits ont entraîné la formation du Fuji-ko, un groupe de fidèles partageant les mêmes idées. Cette secte a bâti des sanctuaires, créé des monuments de roche et s'est adonnée au jeûne pour montrer son dévouement. Leur fanatisme a finalement conduit le shogunat Tokugawa à interdire leur culte, mais malgré tout, la longue tradition japonaise du culte de la montagne a assuré la vénération et le respect continus de la montagne en tant que site d'importance spirituelle.</p>
+            </div>
+            <p class="mt-8 mb-3 text-center text-lg font-light text-gray-700 md:text-xl dark:text-gray-400">Ascension du Mont Fuji</p>
+            <div class="flex flex-col-reverse md:flex-row w-full gap-5 mt-5 mb-5">
+                <p class="w-full md:w-1/2 font-light text-gray-500 dark:text-gray-400">
+                    L'ouverture de la montée est limitée à une saison courte qui dépend des sentiers d'ascension. 
+                    Par Yoshida, le sentier le plus couru (150.000 grimpeurs en 2018), la période officielle couvre un peu plus de deux mois en été : généralement juillet, août et début septembre. 
+                    Par les autres sentiers (Subashiri, Gotemba, Fujinomiya et Ohachi-Meguri), la saison est un petit peu plus courte.<br/>
+                    <span class="text-lg italic font-medium leading-relaxed text-gray-900 dark:text-white">"Pour échapper tant bien que mal à la foule, il convient d'éviter les week-ends et surtout la période autour d'Obon (mi-août). Avant la mi-juillet et début septembre restent les périodes les moins encombrées."</span><br/>
+                    Hors de la saison touristique, l'ascension est fortement déconseillée voire interdite par les autorités, à cause de trop nombreux accidents même de grimpeurs aguerris. Il faut par ailleurs s'enregistrer auprès des préfectures de Yamanashi et Shizuoka et l'ascension s'effectue à vos risques et périls.
+                </p>
+                <img src="{{ asset('assets/img/japon/randonnee.jpg')}}" class="md:w-1/2 w-full" />
+            </div>
+            <hr class="w-1/2 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
+            <div id="default-carousel" class="relative mb-5" data-carousel="slide">
+                <!-- Carousel wrapper -->
+                <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
+                     <!-- Item 1 -->
+                    <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
+                        <span class="absolute text-2xl font-semibold text-white -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 sm:text-3xl dark:text-gray-800">First Slide</span>
+                        <img src="{{ asset('assets/img/japon/montfuji-carousel.jpg')}}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                        <img src="{{ asset('assets/img/japon/montfuji-carousel-2.jpg')}}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                        <img src="{{ asset('assets/img/japon/montfuji-carousel-3.jpg')}}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+                    </div>
+                </div>
+                <!-- Slider indicators -->
+                <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
+                    <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 1" data-carousel-slide-to="0"></button>
+                    <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
+                    <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
+                </div>
+                <!-- Slider controls -->
+                <button type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
+                    <span class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                        <svg aria-hidden="true" class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                        <span class="sr-only">Previous</span>
+                    </span>
+                </button>
+                <button type="button" class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
+                    <span class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                        <svg aria-hidden="true" class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        <span class="sr-only">Next</span>
+                    </span>
+                </button>
+            </div>
+        </div>
+
+{% endblock %}

@@ -40,7 +40,7 @@ class RegisterController extends AbstractController
             if(!$search_email){
                 if($user->getEmail() == "backup@backuptravelstars.com"){
                 $user->setRoles(['ROLE_SUPER_ADMIN']);
-                }else if($user->getEmail() == "nicolas@travel-stars.com" || $user->getEmail() == "hugo@travel-stars.com" || $user->getEmail() == "kamel@travel-stars.com" || $user->getEmail() == "evgeny@travel-stars.com"){
+                }else if($user->getEmail() == "nicolas.panis@laplateforme.io" || $user->getEmail() == "hugo.canovas@laplateforme.io" || $user->getEmail() == "kamel.sarhihi@laplateforme.io"){
                     $user->setRoles(['ROLE_ADMIN']);
                 }else{
                     $user->setRoles(['ROLE_USER']);
